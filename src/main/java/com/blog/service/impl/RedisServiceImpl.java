@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.blog.config.RedisExpireTime;
 import com.blog.exception.BusinessException;
 import com.blog.exception.Code;
 import com.blog.service.RedisService;
@@ -12,12 +13,13 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class RedisServiceImpl implements RedisService {
+    private static final TimeUnit REDIS_TIME_UNIT = TimeUnit.SECONDS;
     private StringRedisTemplate stringRedisTemplate;
-    @Value("${redis-expire}")
-    private int expire;
+    private RedisExpireTime redisExpireTime;
 
-    public RedisServiceImpl(StringRedisTemplate stringRedisTemplate) {
+    public RedisServiceImpl(StringRedisTemplate stringRedisTemplate, RedisExpireTime redisExpireTime) {
         this.stringRedisTemplate = stringRedisTemplate;
+        this.redisExpireTime = redisExpireTime;
     }
 
     @Override
@@ -26,12 +28,8 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public void set(String key, String value, boolean isExpire) {
-        if (isExpire) {
-            stringRedisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
-        } else {
-            set(key, value);
-        }
+    public void set(String key, String value, int expire) {
+        stringRedisTemplate.opsForValue().set(key, value, expire, REDIS_TIME_UNIT);
     }
 
     @Override
@@ -42,6 +40,16 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void del(String key) {
         stringRedisTemplate.delete(key);
+    }
+
+    @Override
+    public boolean has(String key) {
+        return stringRedisTemplate.hasKey(key);
+    }
+
+    @Override
+    public void expire(String key, int expire) {
+        stringRedisTemplate.expire(key, expire, REDIS_TIME_UNIT);
     }
 
     @Override
@@ -56,5 +64,40 @@ public class RedisServiceImpl implements RedisService {
             return null;
         }
         return result.toString();
+    }
+
+    @Override
+    public void setVerifyCode(String email, String verifyCode) {
+        set("verify_code:" + email, verifyCode, redisExpireTime.getVerifycode());
+    }
+
+    @Override
+    public String getVerifyCode(String email) {
+        return get("verify_code:" + email);
+    }
+
+    @Override
+    public void delVerifyCode(String email) {
+        del("verify_code:" + email);
+    }
+
+    @Override
+    public boolean hasToken(int userId) {
+        return has("token:" + userId);
+    }
+
+    @Override
+    public void setToken(int userId, String token) {
+        set("token:" + userId, token, redisExpireTime.getToken());
+    }
+
+    @Override
+    public String getToken(int userId) {
+        return get("token:" + userId);
+    }
+
+    @Override
+    public void resetTokenExpire(int userId) {
+        expire("token:" + userId, redisExpireTime.getToken());
     }
 }

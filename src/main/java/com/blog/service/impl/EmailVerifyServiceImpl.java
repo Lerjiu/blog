@@ -8,7 +8,6 @@ import com.blog.utils.EmailVerify;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.context.IContext;
 
 @Service
 public class EmailVerifyServiceImpl implements EmailVerifyService {
@@ -25,7 +24,7 @@ public class EmailVerifyServiceImpl implements EmailVerifyService {
     @Override
     public void sendVerifyEmail(String to, String message) {
         String code = EmailVerify.randomCode();
-        redisService.set(to, code, true);
+        redisService.setVerifyCode(to, code);
         Context context = new Context();
         context.setVariable("message", message);
         context.setVariable("code", code);

@@ -29,4 +29,6 @@ public class Code {
 
     public static final int USER_REGISTER = 40000;
     public static final String USER_REGISTER_MESSAGE = "user register success...";
+    public static final int USER_LOGIN = 40010;
+    public static final String USER_LOGIN_MESSAGE = "user login success...";
 }

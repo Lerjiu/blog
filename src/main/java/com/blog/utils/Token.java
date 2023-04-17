@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class Token {
     private static final long EXPIRE_TIME = 24 * 60 * 60 * 1000;
-    private static final String KEY = "blog_authorization_token";
+    private static final String KEY = "2023_buaa_j2ee_blog_authorization_token";
 
     public static String createToken(int id) {
         HashMap<String, Object> header = new HashMap<>();

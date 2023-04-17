@@ -6,4 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserService {
     void register(User user);
+    int getUserIdByEmailAndPassword(String email, String password);
 }
