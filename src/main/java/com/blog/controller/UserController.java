@@ -8,6 +8,7 @@ import com.blog.service.RedisService;
 import com.blog.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -30,7 +31,7 @@ public class UserController {
         if (redisVerifyCode == null) {
             return Response.fail(Code.EMAIL_VERIFY_CODE_INVALID, Code.EMAIL_VERIFY_CODE_INVALID_MESSAGE);
         } else if (!redisVerifyCode.equals(verifyCode)) {
-            return Response.fail(Code.EMAIL_VERIFY_CODE_ERROR);
+            return Response.fail(Code.EMAIL_VERIFY_CODE_ERROR, Code.EMAIL_VERIFY_CODE_ERROR_MESSAGE);
         } else {
             redisService.del(user.getEmail());
             userService.register(user);

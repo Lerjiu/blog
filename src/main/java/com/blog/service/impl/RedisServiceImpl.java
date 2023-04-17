@@ -4,13 +4,16 @@ import com.blog.exception.BusinessException;
 import com.blog.exception.Code;
 import com.blog.service.RedisService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class RedisServiceImpl implements RedisService {
     private StringRedisTemplate stringRedisTemplate;
-    @Value("redis-expire")
+    @Value("${redis-expire}")
     private int expire;
 
     public RedisServiceImpl(StringRedisTemplate stringRedisTemplate) {
@@ -25,7 +28,7 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void set(String key, String value, boolean isExpire) {
         if (isExpire) {
-            stringRedisTemplate.opsForValue().set(key, value, expire);
+            stringRedisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
         } else {
             set(key, value);
         }
