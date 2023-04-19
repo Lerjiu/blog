@@ -5,13 +5,13 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/blog
+      url: jdbc:mysql://60.204.157.19:3306/blog
       username: root
-      password: 122381
+      password: J2EE_Lerjiu
   redis:
-    host: localhost
+    host: 60.204.157.19
     port: 6379
-    password: 122381
+    password: J2EE_Lerjiu
     lettuce:
       pool:
         max-active: 32
@@ -32,6 +32,11 @@ spring:
     protocol: smtps
   thymeleaf:
     cache: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      max-request-size: 1000MB
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
@@ -40,3 +45,8 @@ mybatis:
 redis-expire-time:
   verifycode: 300
   token: 259200
+
+file:
+  path: /static/**
+  location: /home/lerjiu/upload/blog/
+  img: img/

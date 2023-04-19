@@ -37,7 +37,7 @@ public class Token {
                     .getBody()
                     .getSubject();
         } catch (JwtException e) {
-            throw BusinessException.exception(Code.TOKEN_EXPIRED_TIME, Code.TOKEN_EXPIRED_TIME_MESSAGE, e);
+            throw BusinessException.exception(Code.TOKEN_INVALID, Code.TOKEN_INVALID_MESSAGE, e);
         }
         if (!id.equals(token_id)) {
             throw BusinessException.exception(Code.TOKEN_INVALID_USER, Code.TOKEN_INVALID_USER_MESSAGE);

@@ -1,24 +1,27 @@
-package com.blog.domain;
+package com.blog.controller.response.data;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class User {
-    private int id;
+public class UserInfo {
     private String name;
-    private String password;
     private String email;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
     private String description;
-    // 0 女; 1 男
     private boolean sex;
     private String avatar;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public UserInfo(String name, String email, Date birthday, String description, boolean sex, String avatar) {
+        this.name = name;
+        this.email = email;
+        this.birthday = birthday;
+        this.description = description;
+        this.sex = sex;
+        this.avatar = avatar;
     }
 
     public String getName() {
@@ -27,14 +30,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -75,18 +70,5 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", birthday=" + birthday +
-                ", description='" + description + '\'' +
-                ", sex=" + sex +
-                '}';
     }
 }

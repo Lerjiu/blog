@@ -19,18 +19,14 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("token interceptor pre handle...");
         int userId = Integer.parseInt(request.getHeader("id"));
         String token = request.getHeader("token");
         if (redisService.hasToken(userId) && redisService.getToken(userId).equals(token)) {
             redisService.resetTokenExpire(userId);
+        } else {
+            Token.verifyToken(token, request.getHeader("id"));
         }
-        Token.verifyToken(token, request.getHeader("id"));
         return true;
     }
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("token interceptor post handle");
-    }
 }
