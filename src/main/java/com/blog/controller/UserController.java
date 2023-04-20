@@ -4,12 +4,10 @@ import com.blog.controller.response.DataResponse;
 import com.blog.controller.response.Response;
 import com.blog.controller.response.data.UserInfo;
 import com.blog.controller.response.data.UserToken;
+import com.blog.domain.CollectionFolder;
 import com.blog.domain.User;
 import com.blog.exception.Code;
-import com.blog.service.EmailVerifyService;
-import com.blog.service.FileService;
-import com.blog.service.RedisService;
-import com.blog.service.UserService;
+import com.blog.service.*;
 import com.blog.utils.Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,14 +27,16 @@ public class UserController {
     private RedisService redisService;
     private UserService userService;
     private FileService fileService;
+    private CollectionFolderService collectionFolderService;
     @Value("${file.img}")
     private String imgPath;
 
-    public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService) {
+    public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService, CollectionFolderService collectionFolderService) {
         this.emailVerifyService = emailVerifyService;
         this.redisService = redisService;
         this.userService = userService;
         this.fileService = fileService;
+        this.collectionFolderService = collectionFolderService;
     }
 
     @RequestMapping("/register")
@@ -49,6 +49,10 @@ public class UserController {
         } else {
             redisService.delVerifyCode(user.getEmail());
             userService.register(user);
+            CollectionFolder collectionFolder = new CollectionFolder();
+            collectionFolder.setUserId(user.getId());
+            collectionFolder.setName("默认收藏夹");
+            collectionFolderService.add(collectionFolder);
             return Response.success(Code.USER_REGISTER, Code.USER_REGISTER_MESSAGE);
         }
     }
@@ -72,8 +76,20 @@ public class UserController {
         return DataResponse.success(Code.USER_LOGIN, Code.USER_LOGIN_MESSAGE, new UserToken(userId, token));
     }
 
+    @RequestMapping("/logout")
+    public Response logout(@RequestHeader("id") int id) {
+        redisService.delToken(id);
+        return Response.success(Code.USER_LOGOUT, Code.USER_LOGOUT_MESSAGE);
+    }
+
     @RequestMapping("getInfo")
     public DataResponse getInfo(@RequestHeader("id") int id) {
+        User user = userService.getUserById(id);
+        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, new UserInfo(user.getName(), user.getEmail(), user.getBirthday(), user.getDescription(), user.isSex(), user.getAvatar()));
+    }
+
+    @RequestMapping("getOtherInfo")
+    public DataResponse getOtherInfo(int id) {
         User user = userService.getUserById(id);
         return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, new UserInfo(user.getName(), user.getEmail(), user.getBirthday(), user.getDescription(), user.isSex(), user.getAvatar()));
     }
@@ -98,7 +114,5 @@ public class UserController {
         } else {
             return Response.fail(Code.USER_PASSWORD_ERROR, Code.USER_PASSWORD_ERROR_MESSAGE);
         }
-
     }
-
 }

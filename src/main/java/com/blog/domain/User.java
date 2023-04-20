@@ -1,5 +1,8 @@
 package com.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class User {
@@ -7,6 +10,8 @@ public class User {
     private String name;
     private String password;
     private String email;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
     private String description;
     // 0 女; 1 男
@@ -87,6 +92,7 @@ public class User {
                 ", birthday=" + birthday +
                 ", description='" + description + '\'' +
                 ", sex=" + sex +
+                ", avatar='" + avatar + '\'' +
                 '}';
     }
 }

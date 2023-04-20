@@ -1,5 +1,8 @@
 package com.blog.service;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public interface RedisService {
     void set(String key, String value);
     void set(String key, String value, int expire);
@@ -12,9 +15,10 @@ public interface RedisService {
     void setVerifyCode(String email, String verifyCode);
     String getVerifyCode(String email);
     void delVerifyCode(String email);
-    boolean hasToken(int userId);
     void setToken(int userId, String token);
     String getToken(int userId);
+    void delToken(int userId);
+    boolean hasToken(int userId);
     void resetTokenExpire(int userId);
 
 }

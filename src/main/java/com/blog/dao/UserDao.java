@@ -8,6 +8,7 @@ import java.util.Date;
 @Mapper
 public interface UserDao {
     @Insert("insert into user(name, password, email) values(#{name}, #{password}, #{email})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void add(User user);
     @Select("select id from user where email = #{email} and password = #{password}")
     int getUserIdByEmailAndPassword(String email, String password);

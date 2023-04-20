@@ -1,11 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.config.RedisExpireTime;
-import com.blog.exception.BusinessException;
-import com.blog.exception.Code;
 import com.blog.service.RedisService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -82,11 +78,6 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public boolean hasToken(int userId) {
-        return has("token:" + userId);
-    }
-
-    @Override
     public void setToken(int userId, String token) {
         set("token:" + userId, token, redisExpireTime.getToken());
     }
@@ -94,6 +85,16 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public String getToken(int userId) {
         return get("token:" + userId);
+    }
+
+    @Override
+    public void delToken(int userId) {
+        del("token:" + userId);
+    }
+
+    @Override
+    public boolean hasToken(int userId) {
+        return has("token:" + userId);
     }
 
     @Override
