@@ -53,6 +53,7 @@ public class ArticleController {
         Article oldArticle = articleService.get(article.getId());
         article.setFavoritesNum(oldArticle.getFavoritesNum());
         article.setCommentsNum(oldArticle.getCommentsNum());
+        article.setCommentOrderNum(oldArticle.getCommentOrderNum());
         article.setAuthor(oldArticle.getAuthor());
         if (article.getDescription() == null || article.getDescription().equals("")) {
             article.setDescription(article.getContent().substring(0, Math.min(Article.DESCRIPTION_MAX_LENGTH, article.getContent().length())));

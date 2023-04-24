@@ -24,22 +24,22 @@ public interface ArticleDao {
     void addFavoritesNum(int id);
     @Update("update article set favorites_num = favorites_num - 1 where id = #{id}")
     void subFavoritesNum(int id);
-    @Insert("insert into article(title, description, content, author, status, update_time) values(#{title}, #{description}, #{content}, #{author}, #{status}, #{updateTime})")
+    @Insert("insert into article(title, description, content, author, update_time) values(#{title}, #{description}, #{content}, #{author}, #{updateTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void add(Article article);
     @Delete("delete from article where id = #{id}")
     void delete(int id);
-    @Update("update article set title = #{title}, description = #{description}, content = #{content}, status = #{status}, update_time = #{updateTime} where id = #{id}")
+    @Update("update article set title = #{title}, description = #{description}, content = #{content}, update_time = #{updateTime} where id = #{id}")
     void update(Article article);
     @Select("select * from article where id = #{id}")
     Article get(int id);
     @Select("select count(*) from article")
     int getArticleNum();
-    @Select("select id, title, description, comments_num, favorites_num, author, status, update_time from article order by id desc limit #{currentNum}, #{pageSize}")
+    @Select("select id, title, description, comments_num, favorites_num, author, update_time from article order by id desc limit #{currentNum}, #{pageSize}")
     List<Article> getPageArticles(int currentNum, int pageSize);
     @Select("select count(*) from article where author = #{userId}")
     int getUserArticleNum(int userId);
-    @Select("select * from (select id, title, description, content, comments_num, favorites_num, author, status, update_time from article where author = #{userId}) as user_article order by id desc limit #{currentNum}, #{pageSize}")
+    @Select("select * from (select id, title, description, content, comments_num, favorites_num, author, update_time from article where author = #{userId}) as user_article order by id desc limit #{currentNum}, #{pageSize}")
     List<Article> getUserPageArticles(int userId, int currentNum, int pageSize);
 
 }
