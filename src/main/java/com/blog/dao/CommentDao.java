@@ -1,10 +1,7 @@
 package com.blog.dao;
 
 import com.blog.domain.Comment;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,4 +12,6 @@ public interface CommentDao {
     @Select("select * from comment where article_id = #{articleId}")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     List<Comment> getComments(int articleId);
+    @Delete("delete from comment where id = #{id}")
+    void delete(int id);
 }

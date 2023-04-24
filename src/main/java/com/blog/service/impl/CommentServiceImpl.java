@@ -20,13 +20,21 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void add(Comment comment) {
-        int commentsNum = articleDao.getCommentsNum(comment.getArticleId());
-        comment.setOrderNum(commentsNum + 1);
+        int commentOrderNum = articleDao.getCommentOrderNum(comment.getArticleId());
+        comment.setOrderNum(commentOrderNum + 1);
         commentDao.add(comment);
+        articleDao.addCommentsNum(comment.getArticleId());
+        articleDao.addCommentOrderNum(comment.getArticleId());
     }
 
     @Override
     public List<Comment> getComments(int articleId) {
         return commentDao.getComments(articleId);
+    }
+
+    @Override
+    public void delete(int id) {
+        commentDao.delete(id);
+        articleDao.subCommentsNum(id);
     }
 }

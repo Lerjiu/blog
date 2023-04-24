@@ -1,13 +1,13 @@
 package com.blog.service;
 
-import com.blog.domain.Comment;
+import com.blog.domain.Favorite;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Transactional
-public interface CommentService {
-    void add(Comment comment);
-    List<Comment> getComments(int articleId);
+public interface FavoriteService {
+    void add(Favorite favorite);
+    List<Favorite> getFavorites(int folderId);
     void delete(int id);
 }

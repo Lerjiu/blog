@@ -1,6 +1,6 @@
 package com.blog.domain;
 
-public class Collection {
+public class Favorite {
     private int id;
     private int userId;
     private int articleId;

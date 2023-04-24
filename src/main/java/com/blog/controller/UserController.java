@@ -4,7 +4,7 @@ import com.blog.controller.response.DataResponse;
 import com.blog.controller.response.Response;
 import com.blog.controller.response.data.UserInfo;
 import com.blog.controller.response.data.UserToken;
-import com.blog.domain.CollectionFolder;
+import com.blog.domain.FavoriteFolder;
 import com.blog.domain.User;
 import com.blog.exception.Code;
 import com.blog.service.*;
@@ -27,11 +27,11 @@ public class UserController {
     private RedisService redisService;
     private UserService userService;
     private FileService fileService;
-    private CollectionFolderService collectionFolderService;
+    private FavoriteFolderService collectionFolderService;
     @Value("${file.img}")
     private String imgPath;
 
-    public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService, CollectionFolderService collectionFolderService) {
+    public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService, FavoriteFolderService collectionFolderService) {
         this.emailVerifyService = emailVerifyService;
         this.redisService = redisService;
         this.userService = userService;
@@ -49,7 +49,7 @@ public class UserController {
         } else {
             redisService.delVerifyCode(user.getEmail());
             userService.register(user);
-            CollectionFolder collectionFolder = new CollectionFolder();
+            FavoriteFolder collectionFolder = new FavoriteFolder();
             collectionFolder.setUserId(user.getId());
             collectionFolder.setName("默认收藏夹");
             collectionFolderService.add(collectionFolder);

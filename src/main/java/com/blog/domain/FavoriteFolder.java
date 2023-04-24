@@ -1,6 +1,6 @@
 package com.blog.domain;
 
-public class CollectionFolder {
+public class FavoriteFolder {
     private int id;
     private int userId;
     private String name;

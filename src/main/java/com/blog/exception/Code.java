@@ -59,16 +59,35 @@ public class Code {
     public static final int COMMENT_GET_LIST = 70010;
     public static final String COMMENT_GET_LIST_MESSAGE = "get comment list success";
 
-    public static final int COLLECTION_ADD_FOLDER = 80000;
-    public static final String COLLECTION_ADD_FOLDER_MESSAGE = "add collection folder success";
-    public static final int COLLECTION_GET_FOLDER_LIST = 80010;
-    public static final String COLLECTION_GET_FOLDER_LIST_MESSAGE = "get collection folder list success";
-    public static final int COLLECTION_DELETE_FOLDER = 80020;
-    public static final String COLLECTION_DELETE_FOLDER_MESSAGE = "delete collection folder success";
-    public static final int COLLECTION_ADD = 80030;
-    public static final String COLLECTION_ADD_MESSAGE = "add collection success";
-    public static final int COLLECTION_GET_LIST = 80040;
-    public static final String COLLECTION_GET_LIST_MESSAGE = "get collection list success";
-    public static final int COLLECTION_DELETE = 80050;
-    public static final String COLLECTION_DELETE_MESSAGE = "delete collection success";
+    public static final int FAVORITE_ADD_FOLDER = 80000;
+    public static final String FAVORITE_ADD_FOLDER_MESSAGE = "add favorite folder success";
+    public static final int FAVORITE_GET_FOLDER_LIST = 80010;
+    public static final String FAVORITE_GET_FOLDER_LIST_MESSAGE = "get favorite folder list success";
+    public static final int FAVORITE_DELETE_FOLDER = 80020;
+    public static final String FAVORITE_DELETE_FOLDER_MESSAGE = "delete favorite folder success";
+    public static final int FAVORITE_ADD = 80030;
+    public static final String FAVORITE_ADD_MESSAGE = "add favorite success";
+    public static final int FAVORITE_GET_LIST = 80040;
+    public static final String FAVORITE_GET_LIST_MESSAGE = "get favorite list success";
+    public static final int FAVORITE_DELETE = 80050;
+    public static final String FAVORITE_DELETE_MESSAGE = "delete favorite success";
+
+    public static final int ARTICLE_ADD = 90000;
+    public static final String ARTICLE_ADD_MESSAGE = "add article success";
+    public static final int ARTICLE_DELETE = 90010;
+    public static final String ARTICLE_DELETE_MESSAGE = "delete article success";
+    public static final int ARTICLE_UPDATE = 90020;
+    public static final String ARTICLE_UPDATE_MESSAGE = "update article success";
+    public static final int ARTICLE_GET = 90030;
+    public static final String ARTICLE_GET_MESSAGE = "get article success";
+    public static final int ARTICLE_GET_NUM = 90040;
+    public static final String ARTICLE_GET_NUM_MESSAGE = "get article num success";
+    public static final int ARTICLE_GET_PAGE = 90050;
+    public static final String ARTICLE_GET_PAGE_MESSAGE = "get article page success";
+    public static final int ARTICLE_GET_USER_NUM = 90060;
+    public static final String ARTICLE_GET_USER_NUM_MESSAGE = "get user article num success";
+    public static final int ARTICLE_GET_USER_PAGE = 90070;
+    public static final String ARTICLE_GET_USER_PAGE_MESSAGE = "get user article page success";
+    public static final int ARTICLE_PAGE_FUZZY_SEARCH = 90080;
+    public static final String ARTICLE_PAGE_FUZZY_SEARCH_MESSAGE = "fuzzy search article page success";
 }

@@ -17,6 +17,9 @@ public class User {
     // 0 女; 1 男
     private boolean sex;
     private String avatar;
+    private int articleNum;
+    private int followerNum;
+    private int followedNum;
 
     public int getId() {
         return id;
@@ -82,6 +85,30 @@ public class User {
         this.avatar = avatar;
     }
 
+    public int getArticleNum() {
+        return articleNum;
+    }
+
+    public void setArticleNum(int articleNum) {
+        this.articleNum = articleNum;
+    }
+
+    public int getFollowerNum() {
+        return followerNum;
+    }
+
+    public void setFollowerNum(int followerNum) {
+        this.followerNum = followerNum;
+    }
+
+    public int getFollowedNum() {
+        return followedNum;
+    }
+
+    public void setFollowedNum(int followedNum) {
+        this.followedNum = followedNum;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -93,6 +120,9 @@ public class User {
                 ", description='" + description + '\'' +
                 ", sex=" + sex +
                 ", avatar='" + avatar + '\'' +
+                ", articleNum=" + articleNum +
+                ", followerNum=" + followerNum +
+                ", followedNum=" + followedNum +
                 '}';
     }
 }

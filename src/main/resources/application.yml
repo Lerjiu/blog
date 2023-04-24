@@ -37,6 +37,8 @@ spring:
       enabled: true
       max-file-size: 1MB
       max-request-size: 1000MB
+  elasticsearch:
+    uris: http://60.204.157.19:9200
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
@@ -50,3 +52,11 @@ file:
   path: /static/**
   location: /home/lerjiu/upload/blog/
   img: img/
+
+es:
+  index:
+    article: articles
+
+search:
+  page-size: 20
+  max-page: 50
