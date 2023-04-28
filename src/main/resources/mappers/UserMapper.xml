@@ -3,4 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.dao.UserDao">
+    <resultMap id="userResultMap" type="User">
+        <result column="article_num" property="articleNum"></result>
+        <result column="follower_num" property="followerNum"></result>
+        <result column="followed_num" property="followedNum"></result>
+        <result column="default_favorite_folder" property="defaultFavoriteFolder"></result>
+    </resultMap>
+
+    <select id="getUserById" resultMap="userResultMap">
+        select * from user where id = #{id}
+    </select>
 </mapper>

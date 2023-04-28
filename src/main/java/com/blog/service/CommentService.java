@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface CommentService {
+public interface CommentService extends PermissionService {
     void add(Comment comment);
-    List<Comment> getComments(int articleId);
+    List<Comment> getArticleComments(int articleId);
     void delete(int id);
 }

@@ -13,4 +13,5 @@ public interface UserService {
     void updateInfo(int id, String name, Date birthday, String description, boolean sex);
     void updateAvatar(int id, String avatar);
     boolean updatePassword(int id, String oldPassword, String newPassword);
+    void addDefaultFavoriteFolder(int id, int favoriteFolderId);
 }

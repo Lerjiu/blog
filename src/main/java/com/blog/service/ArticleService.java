@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface ArticleService {
+public interface ArticleService extends PermissionService {
     int getCommentsNum(int id);
     int getFavoritesNum(int id);
     void add(Article article);

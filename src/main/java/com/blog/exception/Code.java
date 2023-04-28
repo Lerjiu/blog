@@ -1,11 +1,11 @@
 package com.blog.exception;
 
 public class Code {
-    public static final int SYSTEM_EXCEPTION = 500001;
+    public static final int SYSTEM_EXCEPTION = 1001;
     public static final String SYSTEM_EXCEPTION_MESSAGE = "system error...";
-    public static final int BUSINESS_EXCEPTION = 600001;
+    public static final int BUSINESS_EXCEPTION = 2001;
     public static final String BUSINESS_EXCEPTION_MESSAGE = "business error...";
-    public static final int UNKNOWN_EXCEPTION = 999999;
+    public static final int UNKNOWN_EXCEPTION = 9999;
     public static final String UNKNOWN_EXCEPTION_MESSAGE = "unknown error...";
 
     // TODO: 2023/4/15 添加各种业务操作对应的code
@@ -53,11 +53,15 @@ public class Code {
     public static final String FOLLOW_MESSAGE = "follow success";
     public static final int FOLLOW_GET_FOLLOWED_LIST = 60010;
     public static final String FOLLOW_GET_FOLLOWED_LIST_MESSAGE = "get followed list success";
+    public static final int FOLLOW_DELETE = 60020;
+    public static final String FOLLOW_DELETE_MESSAGE = "delete followed success";
 
     public static final int COMMENT_ADD = 70000;
     public static final String COMMENT_ADD_MESSAGE = "add comment success";
     public static final int COMMENT_GET_LIST = 70010;
     public static final String COMMENT_GET_LIST_MESSAGE = "get comment list success";
+    public static final int COMMENT_DELETE = 70020;
+    public static final String COMMENT_DELETE_MESSAGE = "delete comment success";
 
     public static final int FAVORITE_ADD_FOLDER = 80000;
     public static final String FAVORITE_ADD_FOLDER_MESSAGE = "add favorite folder success";
@@ -90,4 +94,21 @@ public class Code {
     public static final String ARTICLE_GET_USER_PAGE_MESSAGE = "get user article page success";
     public static final int ARTICLE_PAGE_FUZZY_SEARCH = 90080;
     public static final String ARTICLE_PAGE_FUZZY_SEARCH_MESSAGE = "fuzzy search article page success";
+    public static final int ARTICLE_UPLOAD_IMG = 90090;
+    public static final String ARTICLE_UPLOAD_IMG_MESSAGE = "upload article image success";
+
+    public static final int DRAFT_ADD = 100000;
+    public static final String DRAFT_ADD_MESSAGE = "add draft success";
+    public static final int DRAFT_DELETE = 100010;
+    public static final String DRAFT_DELETE_MESSAGE = "delete draft success";
+    public static final int DRAFT_UPDATE = 100020;
+    public static final String DRAFT_UPDATE_MESSAGE = "update draft success";
+    public static final int DRAFT_GET = 100030;
+    public static final String DRAFT_GET_MESSAGE = "get draft success";
+    public static final int DRAFT_GET_USER_NUM = 100040;
+    public static final String DRAFT_GET_USER_NUM_MESSAGE = "get user draft num success";
+    public static final int DRAFT_GET_USER_PAGE = 100050;
+    public static final String DRAFT_GET_USER_PAGE_MESSAGE = "get user drafts success";
+    public static final int DRAFT_PUBLISH = 100060;
+    public static final String DRAFT_PUBLISH_MESSAGE = "publish draft success";
 }

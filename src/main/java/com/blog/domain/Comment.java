@@ -62,4 +62,16 @@ public class Comment {
     public void setTime(Date time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", articleId=" + articleId +
+                ", content='" + content + '\'' +
+                ", orderNum=" + orderNum +
+                ", time=" + time +
+                '}';
+    }
 }

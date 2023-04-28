@@ -23,15 +23,15 @@ public class FavoriteController {
     }
 
     @RequestMapping("/add")
-    public Response add(@RequestHeader("id") int id, Favorite favorite) {
-        favorite.setUserId(id);
+    public Response add(@RequestHeader("id") int userId, Favorite favorite) {
+        favorite.setUserId(userId);
         favoriteService.add(favorite);
         return Response.success(Code.FAVORITE_ADD, Code.FAVORITE_ADD_MESSAGE);
     }
 
-    @RequestMapping("/getFavorites")
-    public DataResponse getFavorites(int folderId) {
-        List<Favorite> favorites = favoriteService.getFavorites(folderId);
+    @RequestMapping("/getFolderFavorites")
+    public DataResponse getFolderFavorites(int folderId) {
+        List<Favorite> favorites = favoriteService.getFolderFavorites(folderId);
         return DataResponse.success(Code.FAVORITE_GET_LIST, Code.FAVORITE_GET_LIST_MESSAGE, favorites);
     }
 

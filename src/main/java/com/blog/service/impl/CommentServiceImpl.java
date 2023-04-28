@@ -28,13 +28,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getComments(int articleId) {
-        return commentDao.getComments(articleId);
+    public List<Comment> getArticleComments(int articleId) {
+        return commentDao.getArticleComments(articleId);
     }
 
     @Override
     public void delete(int id) {
         commentDao.delete(id);
-        articleDao.subCommentsNum(id);
+        Comment comment = commentDao.get(id);
+        articleDao.subCommentsNum(comment.getArticleId());
+    }
+
+    @Override
+    public boolean checkPermission(int userId, int id) {
+        return commentDao.checkUserComment(userId, id);
     }
 }

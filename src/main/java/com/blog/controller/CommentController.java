@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import com.blog.controller.response.DataResponse;
+import com.blog.controller.response.Response;
 import com.blog.domain.Comment;
 import com.blog.exception.Code;
 import com.blog.service.CommentService;
@@ -28,9 +29,15 @@ public class CommentController {
         return DataResponse.success(Code.COMMENT_ADD, Code.COMMENT_ADD_MESSAGE, comment);
     }
 
-    @RequestMapping("/getComments")
-    public DataResponse getList(int articleId) {
-        List<Comment> comments = commentService.getComments(articleId);
+    @RequestMapping("/getArticleComments")
+    public DataResponse getArticleComments(int articleId) {
+        List<Comment> comments = commentService.getArticleComments(articleId);
         return DataResponse.success(Code.COMMENT_GET_LIST, Code.COMMENT_GET_LIST_MESSAGE, comments);
+    }
+
+    @RequestMapping("/delete")
+    public Response delete(int id) {
+        commentService.delete(id);
+        return Response.success(Code.COMMENT_DELETE, Code.COMMENT_DELETE_MESSAGE);
     }
 }

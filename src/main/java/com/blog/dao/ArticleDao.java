@@ -31,15 +31,13 @@ public interface ArticleDao {
     void delete(int id);
     @Update("update article set title = #{title}, description = #{description}, content = #{content}, update_time = #{updateTime} where id = #{id}")
     void update(Article article);
-    @Select("select * from article where id = #{id}")
     Article get(int id);
     @Select("select count(*) from article")
     int getArticleNum();
-    @Select("select id, title, description, comments_num, favorites_num, author, update_time from article order by id desc limit #{currentNum}, #{pageSize}")
     List<Article> getPageArticles(int currentNum, int pageSize);
     @Select("select count(*) from article where author = #{userId}")
     int getUserArticleNum(int userId);
-    @Select("select * from (select id, title, description, content, comments_num, favorites_num, author, update_time from article where author = #{userId}) as user_article order by id desc limit #{currentNum}, #{pageSize}")
     List<Article> getUserPageArticles(int userId, int currentNum, int pageSize);
-
+    @Select("select exists(select * from article where id = #{id} and author = #{userId})")
+    boolean checkUserArticle(int userId, int id);
 }

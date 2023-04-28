@@ -1,5 +1,6 @@
 package com.blog.controller.response.data;
 
+import com.blog.domain.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,16 +15,10 @@ public class UserInfo {
     private String description;
     private boolean sex;
     private String avatar;
-
-    public UserInfo(String name, String email, Date birthday, String description, boolean sex, String avatar) {
-        this.name = name;
-        this.email = email;
-        this.birthday = birthday;
-        this.description = description;
-        this.sex = sex;
-        this.avatar = avatar;
-    }
-
+    private int articleNum;
+    private int followerNum;
+    private int followedNum;
+    private int defaultFavoriteFolder;
     public String getName() {
         return name;
     }
@@ -70,5 +65,52 @@ public class UserInfo {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public int getArticleNum() {
+        return articleNum;
+    }
+
+    public void setArticleNum(int articleNum) {
+        this.articleNum = articleNum;
+    }
+
+    public int getFollowerNum() {
+        return followerNum;
+    }
+
+    public void setFollowerNum(int followerNum) {
+        this.followerNum = followerNum;
+    }
+
+    public int getFollowedNum() {
+        return followedNum;
+    }
+
+    public void setFollowedNum(int followedNum) {
+        this.followedNum = followedNum;
+    }
+
+    public int getDefaultFavoriteFolder() {
+        return defaultFavoriteFolder;
+    }
+
+    public void setDefaultFavoriteFolder(int defaultFavoriteFolder) {
+        this.defaultFavoriteFolder = defaultFavoriteFolder;
+    }
+
+    public static UserInfo getUserInfoFromUser(User user) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName(user.getName());
+        userInfo.setEmail(user.getEmail());
+        userInfo.setBirthday(user.getBirthday());
+        userInfo.setDescription(user.getDescription());
+        userInfo.setSex(user.isSex());
+        userInfo.setAvatar(user.getAvatar());
+        userInfo.setArticleNum(user.getArticleNum());
+        userInfo.setFollowerNum(user.getFollowerNum());
+        userInfo.setFollowedNum(user.getFollowedNum());
+        userInfo.setDefaultFavoriteFolder(user.getDefaultFavoriteFolder());
+        return userInfo;
     }
 }

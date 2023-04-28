@@ -21,15 +21,21 @@ public class FollowController {
         this.followService = followService;
     }
 
-    @RequestMapping("/follow")
-    public Response follow(@RequestHeader("id") int id, int followed) {
-        followService.follow(id, followed);
+    @RequestMapping("/add")
+    public Response add(@RequestHeader("id") int id, int followed) {
+        followService.add(id, followed);
         return Response.success(Code.FOLLOW, Code.FOLLOW_MESSAGE);
     }
 
-    @RequestMapping("/getFollowedList")
-    public DataResponse getFollowedList(@RequestHeader("id") int id) {
-        List<Integer> followedList = followService.getFollowedList(id);
+    @RequestMapping("/getUserFollowed")
+    public DataResponse getUserFollowed(@RequestHeader("id") int id) {
+        List<Integer> followedList = followService.getUserFollowed(id);
         return DataResponse.success(Code.FOLLOW_GET_FOLLOWED_LIST, Code.FOLLOW_GET_FOLLOWED_LIST_MESSAGE, followedList);
+    }
+
+    @RequestMapping("/delete")
+    public Response delete(@RequestHeader("id") int id, int followed) {
+        followService.delete(id, followed);
+        return Response.success(Code.FOLLOW_DELETE, Code.FAVORITE_DELETE_MESSAGE);
     }
 }

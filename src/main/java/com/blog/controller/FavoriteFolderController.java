@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/FavoriteFolder")
+@RequestMapping("/api/favoriteFolder")
 @ResponseBody
 public class FavoriteFolderController {
     private FavoriteFolderService favoriteFolderService;
@@ -23,16 +23,16 @@ public class FavoriteFolderController {
     }
 
     @RequestMapping("/add")
-    public Response add(@RequestHeader("id") int id, FavoriteFolder favoriteFolder) {
-        favoriteFolder.setUserId(id);
+    public Response add(@RequestHeader("id") int userId, FavoriteFolder favoriteFolder) {
+        favoriteFolder.setUserId(userId);
         favoriteFolderService.add(favoriteFolder);
         return Response.success(Code.FAVORITE_ADD_FOLDER, Code.FAVORITE_ADD_FOLDER_MESSAGE);
     }
 
-    @RequestMapping("/getFavoriteFolders")
-    public DataResponse getList(@RequestHeader("id") int id) {
-        List<FavoriteFolder> favoriteFolders = favoriteFolderService.getFavoriteFolders(id);
-        return DataResponse.success(Code.FAVORITE_GET_FOLDER_LIST, Code.FOLLOW_GET_FOLLOWED_LIST_MESSAGE, favoriteFolders);
+    @RequestMapping("/getUserFolders")
+    public DataResponse getUserFolders(@RequestHeader("id") int userId) {
+        List<FavoriteFolder> favoriteFolders = favoriteFolderService.getFavoriteFolders(userId);
+        return DataResponse.success(Code.FAVORITE_GET_FOLDER_LIST, Code.FAVORITE_GET_FOLDER_LIST_MESSAGE, favoriteFolders);
     }
 
     @RequestMapping("/delete")

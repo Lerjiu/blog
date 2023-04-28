@@ -2,9 +2,11 @@ package com.blog.service;
 
 import com.blog.domain.Article;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface EsArticleService {
     void docCreate(Article article);
     void docDelete(int id);

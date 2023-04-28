@@ -35,7 +35,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 1MB
+      max-file-size: 5MB
       max-request-size: 1000MB
   elasticsearch:
     uris: http://60.204.157.19:9200
@@ -51,7 +51,8 @@ redis-expire-time:
 file:
   path: /static/**
   location: /home/lerjiu/upload/blog/
-  img: img/
+  avatar: avatar/
+  article-img: article_img/
 
 es:
   index:

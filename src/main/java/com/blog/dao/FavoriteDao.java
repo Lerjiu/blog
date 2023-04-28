@@ -12,10 +12,14 @@ import java.util.List;
 public interface FavoriteDao {
     @Insert("insert into favorite(user_id, article_id, folder_id) values(#{userId}, #{articleId}, #{folderId})")
     void add(Favorite collection);
-    @Select("select * from favorite where folder_id = #{folderId}")
-    List<Favorite> getFavorites(int folderId);
+    Favorite get(int id);
+    List<Favorite> getFolderFavorites(int folderId);
     @Delete("delete from favorite where id = #{id}")
     void delete(int id);
     @Delete("delete from favorite where folder_id = #{folderId}")
     void deleteForFolder(int folderId);
+    @Delete("delete from favorite where article_id = #{articleId}")
+    void deleteForArticle(int articleId);
+    @Select("select exists(select * from favorite where id = #{id} and user_id = #{userId})")
+    boolean checkUserFavorite(int userId, int id);
 }

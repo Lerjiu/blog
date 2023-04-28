@@ -20,6 +20,7 @@ public class User {
     private int articleNum;
     private int followerNum;
     private int followedNum;
+    private int defaultFavoriteFolder;
 
     public int getId() {
         return id;
@@ -109,6 +110,14 @@ public class User {
         this.followedNum = followedNum;
     }
 
+    public int getDefaultFavoriteFolder() {
+        return defaultFavoriteFolder;
+    }
+
+    public void setDefaultFavoriteFolder(int defaultFavoriteFolder) {
+        this.defaultFavoriteFolder = defaultFavoriteFolder;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -123,6 +132,7 @@ public class User {
                 ", articleNum=" + articleNum +
                 ", followerNum=" + followerNum +
                 ", followedNum=" + followedNum +
+                ", defaultFavoriteFolder=" + defaultFavoriteFolder +
                 '}';
     }
 }

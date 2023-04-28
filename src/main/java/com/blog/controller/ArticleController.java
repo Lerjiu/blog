@@ -7,12 +7,14 @@ import com.blog.domain.Article;
 import com.blog.exception.Code;
 import com.blog.service.ArticleService;
 import com.blog.service.EsArticleService;
+import com.blog.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,17 +24,21 @@ import java.util.List;
 public class ArticleController {
     private ArticleService articleService;
     private EsArticleService elasticService;
+    private FileService fileService;
+    @Value("${file.article-img}")
+    private String articleImgPath;
     @Value("${search.page-size}")
     private int pageSize;
 
-    public ArticleController(ArticleService articleService, EsArticleService elasticService) {
+    public ArticleController(ArticleService articleService, EsArticleService elasticService, FileService fileService) {
         this.articleService = articleService;
         this.elasticService = elasticService;
+        this.fileService = fileService;
     }
 
     @RequestMapping("/add")
-    public Response add(@RequestHeader("id") int id, Article article) {
-        article.setAuthor(id);
+    public Response add(@RequestHeader("id") int userId, Article article) {
+        article.setAuthor(userId);
         if (article.getDescription() == null || article.getDescription().equals("")) {
             article.setDescription(article.getContent().substring(0, Math.min(Article.DESCRIPTION_MAX_LENGTH, article.getContent().length())));
         }
@@ -50,6 +56,7 @@ public class ArticleController {
 
     @RequestMapping("/update")
     public Response update(Article article) {
+        // es对文章所有字段进行更改，因此需要获取一下原来的字段信息
         Article oldArticle = articleService.get(article.getId());
         article.setFavoritesNum(oldArticle.getFavoritesNum());
         article.setCommentsNum(oldArticle.getCommentsNum());
@@ -106,5 +113,11 @@ public class ArticleController {
         PageImpl<Article> articlePageImpl = elasticService.docPageFuzzySearch(currentPage, pageSize, search);
         ArticlePage articlePage = new ArticlePage(articlePageImpl.getContent(), articlePageImpl.getTotalPages());
         return DataResponse.success(Code.ARTICLE_PAGE_FUZZY_SEARCH, Code.ARTICLE_PAGE_FUZZY_SEARCH_MESSAGE, articlePage);
+    }
+
+    @RequestMapping("/uploadImg")
+    public DataResponse uploadImg(MultipartFile articleImg) {
+        String articleImgName = fileService.upload(articleImg, articleImgPath);
+        return DataResponse.success(Code.ARTICLE_UPLOAD_IMG, Code.ARTICLE_UPLOAD_IMG_MESSAGE, articleImgName);
     }
 }

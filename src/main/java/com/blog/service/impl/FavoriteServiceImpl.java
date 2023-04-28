@@ -25,13 +25,19 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public List<Favorite> getFavorites(int folderId) {
-        return favoriteDao.getFavorites(folderId);
+    public List<Favorite> getFolderFavorites(int folderId) {
+        return favoriteDao.getFolderFavorites(folderId);
     }
 
     @Override
     public void delete(int id) {
+        Favorite favorite = favoriteDao.get(id);
         favoriteDao.delete(id);
-        articleDao.subFavoritesNum(id);
+        articleDao.subFavoritesNum(favorite.getArticleId());
+    }
+
+    @Override
+    public boolean checkPermission(int userId, int id) {
+        return favoriteDao.checkUserFavorite(userId, id);
     }
 }

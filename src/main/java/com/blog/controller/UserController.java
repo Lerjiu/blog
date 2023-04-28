@@ -28,8 +28,8 @@ public class UserController {
     private UserService userService;
     private FileService fileService;
     private FavoriteFolderService collectionFolderService;
-    @Value("${file.img}")
-    private String imgPath;
+    @Value("${file.avatar}")
+    private String avatarPath;
 
     public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService, FavoriteFolderService collectionFolderService) {
         this.emailVerifyService = emailVerifyService;
@@ -53,6 +53,7 @@ public class UserController {
             collectionFolder.setUserId(user.getId());
             collectionFolder.setName("默认收藏夹");
             collectionFolderService.add(collectionFolder);
+            userService.addDefaultFavoriteFolder(user.getId(), collectionFolder.getId());
             return Response.success(Code.USER_REGISTER, Code.USER_REGISTER_MESSAGE);
         }
     }
@@ -85,13 +86,13 @@ public class UserController {
     @RequestMapping("getInfo")
     public DataResponse getInfo(@RequestHeader("id") int id) {
         User user = userService.getUserById(id);
-        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, new UserInfo(user.getName(), user.getEmail(), user.getBirthday(), user.getDescription(), user.isSex(), user.getAvatar()));
+        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, UserInfo.getUserInfoFromUser(user));
     }
 
     @RequestMapping("getOtherInfo")
     public DataResponse getOtherInfo(int id) {
         User user = userService.getUserById(id);
-        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, new UserInfo(user.getName(), user.getEmail(), user.getBirthday(), user.getDescription(), user.isSex(), user.getAvatar()));
+        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, UserInfo.getUserInfoFromUser(user));
     }
 
     @RequestMapping("/updateInfo")
@@ -102,7 +103,7 @@ public class UserController {
 
     @RequestMapping("/updateAvatar")
     public Response updateAvatar(@RequestHeader("id") int id, MultipartFile avatar) {
-        String avatarName = fileService.upload(avatar, imgPath);
+        String avatarName = fileService.upload(avatar, avatarPath);
         userService.updateAvatar(id, avatarName);
         return Response.success(Code.USER_UPDATE_AVATAR, Code.USER_UPDATE_AVATAR_MESSAGE);
     }

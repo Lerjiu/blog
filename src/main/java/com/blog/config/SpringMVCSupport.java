@@ -1,5 +1,6 @@
 package com.blog.config;
 
+import com.blog.controller.interceptor.PermissionInterceptor;
 import com.blog.controller.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,11 @@ public class SpringMVCSupport implements WebMvcConfigurer {
     private String location;
     private String[] noTokenInterceptor = {"/api/user/login", "/api/user/register", "/api/user/getVerifyCode"};
     private TokenInterceptor tokenInterceptor;
+    private PermissionInterceptor permissionInterceptor;
 
-    public SpringMVCSupport(TokenInterceptor tokenInterceptor) {
+    public SpringMVCSupport(TokenInterceptor tokenInterceptor, PermissionInterceptor permissionInterceptor) {
         this.tokenInterceptor = tokenInterceptor;
+        this.permissionInterceptor = permissionInterceptor;
     }
 
     @Override
@@ -28,6 +31,7 @@ public class SpringMVCSupport implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/api/**").excludePathPatterns(noTokenInterceptor);
+        registry.addInterceptor(permissionInterceptor).addPathPatterns("/api/*/update", "/api/*/delete");
     }
 
 }

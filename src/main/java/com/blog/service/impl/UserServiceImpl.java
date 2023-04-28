@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void addDefaultFavoriteFolder(int id, int favoriteFolderId) {
+        userDao.addDefaultFavoriteFolder(id, favoriteFolderId);
+    }
+
 }
