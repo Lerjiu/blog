@@ -10,7 +10,5 @@ public class BlogApplication {
         SpringApplication.run(BlogApplication.class, args);
     }
 
-//    我来git一下 --by takune
-
 }
 

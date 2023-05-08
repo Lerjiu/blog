@@ -23,8 +23,8 @@ public class CommentController {
     }
 
     @RequestMapping("/add")
-    public DataResponse add(@RequestHeader("id") int id, Comment comment) {
-        comment.setUserId(id);
+    public DataResponse add(@RequestHeader("id") int userId, Comment comment) {
+        comment.setUserId(userId);
         commentService.add(comment);
         return DataResponse.success(Code.COMMENT_ADD, Code.COMMENT_ADD_MESSAGE, comment);
     }

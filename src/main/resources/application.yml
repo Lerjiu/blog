@@ -50,7 +50,7 @@ redis-expire-time:
 
 file:
   path: /static/**
-  location: /home/lerjiu/upload/blog/
+  location: /home/blog/
   avatar: avatar/
   article-img: article_img/
 

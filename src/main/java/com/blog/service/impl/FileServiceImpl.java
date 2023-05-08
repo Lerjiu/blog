@@ -15,9 +15,10 @@ public class FileServiceImpl implements FileService {
     private String location;
     @Override
     public String upload(MultipartFile file, String relativePath) {
-        String fileName = null;
+        String fileRelativePath = null;
         if (!file.isEmpty()) {
-            fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            fileRelativePath = relativePath + fileName;
             String filePath = location + relativePath + fileName;
             try {
                 file.transferTo(new File(filePath));
@@ -27,6 +28,6 @@ public class FileServiceImpl implements FileService {
         } else {
             throw new SystemException(Code.FILE_EMPTY_EXCEPTION, Code.FILE_EMPTY_EXCEPTION_MESSAGE);
         }
-        return fileName;
+        return fileRelativePath;
     }
 }
