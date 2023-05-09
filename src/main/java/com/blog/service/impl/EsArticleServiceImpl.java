@@ -84,7 +84,9 @@ public class EsArticleServiceImpl implements EsArticleService {
         SearchHits<Article> searchHits = elasticsearchRestTemplate.search(searchQuery, Article.class);
         List<Article> pageArticles = new ArrayList<>();
         searchHits.forEach(searchHit -> {
-            pageArticles.add(searchHit.getContent());
+            Article article = searchHit.getContent();
+            article.setContent("");
+            pageArticles.add(article);
             System.out.println(searchHit.getContent().getId() + ": " + searchHit.getScore());
         });
 

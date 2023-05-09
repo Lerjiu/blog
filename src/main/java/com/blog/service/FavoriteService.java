@@ -9,5 +9,6 @@ import java.util.List;
 public interface FavoriteService extends PermissionService {
     void add(Favorite favorite);
     List<Favorite> getFolderFavorites(int folderId);
+    List<Favorite> getPageFolderFavorites(int folderId, int currentPage, int pageSize);
     void delete(int id);
 }

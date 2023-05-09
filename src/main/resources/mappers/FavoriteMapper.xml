@@ -15,4 +15,7 @@
     <select id="get" resultMap="favoriteResultMap">
         select * from favorite where id = #{id}
     </select>
+    <select id="getPageFolderFavorites" resultType="com.blog.domain.Favorite">
+        select * from (select * from favorite where folder_id = #{folderId}) as folder_favorite order by id desc limit #{currentNum}, #{pageSize}
+    </select>
 </mapper>

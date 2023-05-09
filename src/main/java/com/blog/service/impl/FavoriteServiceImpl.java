@@ -30,6 +30,11 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
+    public List<Favorite> getPageFolderFavorites(int folderId, int currentPage, int pageSize) {
+        return favoriteDao.getPageFolderFavorites(folderId, (currentPage - 1)*pageSize, pageSize);
+    }
+
+    @Override
     public void delete(int id) {
         Favorite favorite = favoriteDao.get(id);
         favoriteDao.delete(id);

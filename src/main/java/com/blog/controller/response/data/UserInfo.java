@@ -19,6 +19,7 @@ public class UserInfo {
     private int followerNum;
     private int followedNum;
     private int defaultFavoriteFolder;
+    private boolean followed;
     public String getName() {
         return name;
     }
@@ -99,6 +100,14 @@ public class UserInfo {
         this.defaultFavoriteFolder = defaultFavoriteFolder;
     }
 
+    public boolean isFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(boolean followed) {
+        this.followed = followed;
+    }
+
     public static UserInfo getUserInfoFromUser(User user) {
         UserInfo userInfo = new UserInfo();
         userInfo.setName(user.getName());
@@ -111,6 +120,12 @@ public class UserInfo {
         userInfo.setFollowerNum(user.getFollowerNum());
         userInfo.setFollowedNum(user.getFollowedNum());
         userInfo.setDefaultFavoriteFolder(user.getDefaultFavoriteFolder());
+        return userInfo;
+    }
+
+    public static UserInfo getUserInfoFromUser(User user, boolean followed) {
+        UserInfo userInfo = getUserInfoFromUser(user);
+        userInfo.setFollowed(followed);
         return userInfo;
     }
 }

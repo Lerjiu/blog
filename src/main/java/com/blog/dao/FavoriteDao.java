@@ -14,6 +14,7 @@ public interface FavoriteDao {
     void add(Favorite collection);
     Favorite get(int id);
     List<Favorite> getFolderFavorites(int folderId);
+    List<Favorite> getPageFolderFavorites(int folderId, int currentNum, int pageSize);
     @Delete("delete from favorite where id = #{id}")
     void delete(int id);
     @Delete("delete from favorite where folder_id = #{folderId}")

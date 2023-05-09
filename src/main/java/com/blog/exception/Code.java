@@ -73,7 +73,9 @@ public class Code {
     public static final String FAVORITE_ADD_MESSAGE = "add favorite success";
     public static final int FAVORITE_GET_LIST = 80040;
     public static final String FAVORITE_GET_LIST_MESSAGE = "get favorite list success";
-    public static final int FAVORITE_DELETE = 80050;
+    public static final int FAVORITE_GET_PAGE_LIST = 80050;
+    public static final String FAVORITE_GET_PAGE_LIST_MESSAGE = "get page favorite list success";
+    public static final int FAVORITE_DELETE = 80060;
     public static final String FAVORITE_DELETE_MESSAGE = "delete favorite success";
 
     public static final int ARTICLE_ADD = 90000;

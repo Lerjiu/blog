@@ -28,15 +28,17 @@ public class UserController {
     private UserService userService;
     private FileService fileService;
     private FavoriteFolderService collectionFolderService;
+    private FollowService followService;
     @Value("${file.avatar}")
     private String avatarPath;
 
-    public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService, FavoriteFolderService collectionFolderService) {
+    public UserController(EmailVerifyService emailVerifyService, RedisService redisService, UserService userService, FileService fileService, FavoriteFolderService collectionFolderService, FollowService followService) {
         this.emailVerifyService = emailVerifyService;
         this.redisService = redisService;
         this.userService = userService;
         this.fileService = fileService;
         this.collectionFolderService = collectionFolderService;
+        this.followService = followService;
     }
 
     @RequestMapping("/register")
@@ -90,9 +92,10 @@ public class UserController {
     }
 
     @RequestMapping("getOtherInfo")
-    public DataResponse getOtherInfo(int id) {
+    public DataResponse getOtherInfo(@RequestHeader("id") int userId, int id) {
         User user = userService.getUserById(id);
-        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, UserInfo.getUserInfoFromUser(user));
+        boolean followed = followService.checkUserFollow(userId, id);
+        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, UserInfo.getUserInfoFromUser(user, followed));
     }
 
     @RequestMapping("/updateInfo")
