@@ -5,13 +5,13 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://60.204.157.19:3306/blog
+      url: jdbc:mysql://123.60.156.248:3306/blog
       username: root
-      password: J2EE_Lerjiu
+      password: lerjiu248
   redis:
-    host: 60.204.157.19
+    host: 123.60.156.248
     port: 6379
-    password: J2EE_Lerjiu
+    password: lerjiu248
     lettuce:
       pool:
         max-active: 32
@@ -38,7 +38,7 @@ spring:
       max-file-size: 5MB
       max-request-size: 1000MB
   elasticsearch:
-    uris: http://60.204.157.19:9200
+    uris: http://123.60.156.248:9200
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
