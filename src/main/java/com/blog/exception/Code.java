@@ -98,6 +98,16 @@ public class Code {
     public static final String ARTICLE_PAGE_FUZZY_SEARCH_MESSAGE = "fuzzy search article page success";
     public static final int ARTICLE_UPLOAD_IMG = 90090;
     public static final String ARTICLE_UPLOAD_IMG_MESSAGE = "upload article image success";
+    public static final int ARTICLE_THEME_GET_NUM = 90100;
+    public static final String ARTICLE_THEME_GET_NUM_MESSAGE = "get theme article num success";
+    public static final int ARTICLE_THEME_GET_PAGE = 90110;
+    public static final String ARTICLE_THEME_GET_PAGE_MESSAGE = "get page theme article success";
+    public static final int ARTICLE_LABEL_GET_NUM = 90120;
+    public static final String ARTICLE_LABEL_GET_NUM_MESSAGE = "get label article num success";
+    public static final int ARTICLE_LABEL_GET_PAGE = 90130;
+    public static final String ARTICLE_LABEL_GET_PAGE_MESSAGE = "get page label article success";
+    public static final int ARTICLE_GET_BY_ID_LIST = 90140;
+    public static final String ARTICLE_GET_BY_ID_LIST_MESSAGE = "get articles by id list success";
 
     public static final int DRAFT_ADD = 100000;
     public static final String DRAFT_ADD_MESSAGE = "add draft success";

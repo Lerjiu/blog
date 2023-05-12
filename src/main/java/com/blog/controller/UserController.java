@@ -2,6 +2,7 @@ package com.blog.controller;
 
 import com.blog.controller.response.DataResponse;
 import com.blog.controller.response.Response;
+import com.blog.controller.response.data.UserBriefInfo;
 import com.blog.controller.response.data.UserInfo;
 import com.blog.controller.response.data.UserToken;
 import com.blog.domain.FavoriteFolder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/user")
@@ -85,17 +87,24 @@ public class UserController {
         return Response.success(Code.USER_LOGOUT, Code.USER_LOGOUT_MESSAGE);
     }
 
-    @RequestMapping("getInfo")
+    @RequestMapping("/getInfo")
     public DataResponse getInfo(@RequestHeader("id") int id) {
         User user = userService.getUserById(id);
         return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, UserInfo.getUserInfoFromUser(user));
     }
 
-    @RequestMapping("getOtherInfo")
+    @RequestMapping("/getOtherInfo")
     public DataResponse getOtherInfo(@RequestHeader("id") int userId, int id) {
         User user = userService.getUserById(id);
         boolean followed = followService.checkUserFollow(userId, id);
         return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, UserInfo.getUserInfoFromUser(user, followed));
+    }
+
+    @RequestMapping("/getOtherBriefInfos")
+    public DataResponse getOtherBriefInfos(List<Integer> ids) {
+        List<User> users = userService.getUserByIds(ids);
+        List<UserBriefInfo> userBriefInfos = UserBriefInfo.getUserBriefInfosFromUsers(users);
+        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, userBriefInfos);
     }
 
     @RequestMapping("/updateInfo")

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.dao.ArticleThemeDao">
+    <resultMap id="articleThemeResultMap" type="ArticleTheme">
+        <result column="article_id" property="articleId"></result>
+        <result column="theme_id" property="themeId"></result>
+    </resultMap>
+
+    <select id="getPageArticleIds" resultType="java.lang.Integer">
+        select article_id from (select * from article_theme where theme_id = #{themeId}) as theme_article order by id desc limit #{currentNum}, #{pageSize}
+    </select>
+</mapper>

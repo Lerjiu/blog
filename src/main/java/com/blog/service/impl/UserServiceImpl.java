@@ -7,6 +7,7 @@ import com.blog.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,6 +32,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(int id) {
         return userDao.getUserById(id);
+    }
+
+    @Override
+    public List<User> getUserByIds(List<Integer> ids) {
+        return userDao.getUserByIds(ids);
     }
 
     @Override

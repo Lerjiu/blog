@@ -5,6 +5,7 @@
 <mapper namespace="com.blog.dao.FavoriteFolderDao">
     <resultMap id="favoriteFolderResultMap" type="FavoriteFolder">
         <result column="user_id" property="userId"></result>
+        <result column="favorites_num" property="favoritesNum"></result>
     </resultMap>
 
     <select id="getFavoriteFolders" resultMap="favoriteFolderResultMap">

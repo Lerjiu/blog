@@ -4,6 +4,7 @@ import com.blog.domain.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Mapper
 public interface UserDao {
@@ -13,6 +14,7 @@ public interface UserDao {
     @Select("select id from user where email = #{email} and password = #{password}")
     int getUserIdByEmailAndPassword(String email, String password);
     User getUserById(int id);
+    List<User> getUserByIds(List<Integer> ids);
     @Update("update user set name = #{name}, birthday = #{birthday}, description = #{description}, sex = #{sex} where id = #{id}")
     void updateInfo(int id, String name, Date birthday, String description, boolean sex);
     @Update("update user set avatar = #{avatar} where id = #{id}")

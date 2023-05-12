@@ -4,15 +4,18 @@ import com.blog.dao.EsArticleRepository;
 import com.blog.domain.Article;
 import com.blog.service.EsArticleService;
 
+import com.blog.utils.IntIdConverter;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.MultiGetItem;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -93,6 +96,20 @@ public class EsArticleServiceImpl implements EsArticleService {
         int resultNum = (int) searchHits.getTotalHits();
 
         return new PageImpl<>(pageArticles, pageable, resultNum);
+    }
+
+    @Override
+    public List<Article> docPageGetByIdList(List<Integer> articleIds) {
+        List<MultiGetItem<Article>> multiGetItems = elasticsearchRestTemplate.multiGet(Query.multiGetQuery(IntIdConverter.convert(articleIds)), Article.class);
+        List<Article> articles = new ArrayList<>();
+        multiGetItems.forEach(articleMultiGetItem -> {
+            Article article = articleMultiGetItem.getItem();
+            if (article != null) {
+                article.setContent("");
+                articles.add(article);
+            }
+        });
+        return articles;
     }
 
 }

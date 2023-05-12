@@ -14,5 +14,5 @@ public interface EsArticleService {
     Article docSearchById(int id);
     List<Article> docPageGet(int currentPage, int pageSize);
     PageImpl<Article> docPageFuzzySearch(int currentPage, int pageSize, String search);
-
+    List<Article> docPageGetByIdList(List<Integer> articleIds);
 }

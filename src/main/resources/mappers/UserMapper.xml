@@ -13,4 +13,20 @@
     <select id="getUserById" resultMap="userResultMap">
         select * from user where id = #{id}
     </select>
+
+    <select id="getUserByIds" resultMap="userResultMap">
+        select name, avatar from user where
+        <choose>
+            <when test="list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id in
+                <foreach item="item" index="index" collection="list"
+                         open="(" separator="," close=")" nullable="true">
+                    #{item}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.blog.service.impl;
 
 import com.blog.dao.ArticleDao;
 import com.blog.dao.FavoriteDao;
+import com.blog.dao.FavoriteFolderDao;
 import com.blog.domain.Favorite;
 import com.blog.service.FavoriteService;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,19 @@ import java.util.List;
 public class FavoriteServiceImpl implements FavoriteService {
     private FavoriteDao favoriteDao;
     private ArticleDao articleDao;
+    private FavoriteFolderDao favoriteFolderDao;
 
-    public FavoriteServiceImpl(FavoriteDao favoriteDao, ArticleDao articleDao) {
+    public FavoriteServiceImpl(FavoriteDao favoriteDao, ArticleDao articleDao, FavoriteFolderDao favoriteFolderDao) {
         this.favoriteDao = favoriteDao;
         this.articleDao = articleDao;
+        this.favoriteFolderDao = favoriteFolderDao;
     }
 
     @Override
     public void add(Favorite favorite) {
         favoriteDao.add(favorite);
         articleDao.addFavoritesNum(favorite.getArticleId());
+        favoriteFolderDao.addFavoritesNum(favorite.getFolderId());
     }
 
     @Override
@@ -39,6 +43,7 @@ public class FavoriteServiceImpl implements FavoriteService {
         Favorite favorite = favoriteDao.get(id);
         favoriteDao.delete(id);
         articleDao.subFavoritesNum(favorite.getArticleId());
+        favoriteFolderDao.subFavoritesNum(favorite.getFolderId());
     }
 
     @Override
