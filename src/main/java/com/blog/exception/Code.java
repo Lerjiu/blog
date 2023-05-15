@@ -108,6 +108,10 @@ public class Code {
     public static final String ARTICLE_LABEL_GET_PAGE_MESSAGE = "get page label article success";
     public static final int ARTICLE_GET_BY_ID_LIST = 90140;
     public static final String ARTICLE_GET_BY_ID_LIST_MESSAGE = "get articles by id list success";
+    public static final int ARTICLE_GET_THEME = 90150;
+    public static final String ARTICLE_GET_THEME_MESSAGE = "get article theme success";
+    public static final int ARTICLE_GET_LABELS = 90160;
+    public static final String ARTICLE_GET_LABELS_MESSAGE = "get article labels success";
 
     public static final int DRAFT_ADD = 100000;
     public static final String DRAFT_ADD_MESSAGE = "add draft success";
@@ -123,4 +127,7 @@ public class Code {
     public static final String DRAFT_GET_USER_PAGE_MESSAGE = "get user drafts success";
     public static final int DRAFT_PUBLISH = 100060;
     public static final String DRAFT_PUBLISH_MESSAGE = "publish draft success";
+
+    public static final int LABEL_GET_HOT = 110000;
+    private static final String LABEL_GET_HOT_MESSAGE = "get hot labels success";
 }

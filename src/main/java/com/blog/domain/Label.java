@@ -3,6 +3,7 @@ package com.blog.domain;
 public class Label {
     private int id;
     private String name;
+    private int articleNum;
 
     public int getId() {
         return id;
@@ -18,5 +19,13 @@ public class Label {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getArticleNum() {
+        return articleNum;
+    }
+
+    public void setArticleNum(int articleNum) {
+        this.articleNum = articleNum;
     }
 }

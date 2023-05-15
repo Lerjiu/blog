@@ -13,6 +13,8 @@ public interface ArticleLabelDao {
     void add(int articleId, int labelId);
     @Delete("delete from article_label where article_id = #{articleId}")
     void deleteArticleLabel(int articleId);
+    @Select("select label_id from article_label where article_id = #{articleId};")
+    List<Integer> getArticleLabelIds(int articleId);
     @Select("select count(*) from article_label where label_id = #{labelId}")
     int getLabelArticleNum(int labelId);
     List<Integer> getPageArticleIds(int labelId, int currentNum, int pageSize);

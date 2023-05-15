@@ -15,6 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -101,7 +102,7 @@ public class UserController {
     }
 
     @RequestMapping("/getOtherBriefInfos")
-    public DataResponse getOtherBriefInfos(List<Integer> ids) {
+    public DataResponse getOtherBriefInfos(@RequestParam List<Integer> ids) {
         List<User> users = userService.getUserByIds(ids);
         List<UserBriefInfo> userBriefInfos = UserBriefInfo.getUserBriefInfosFromUsers(users);
         return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, userBriefInfos);

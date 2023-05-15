@@ -14,7 +14,7 @@ public class SpringMVCSupport implements WebMvcConfigurer {
     private String path;
     @Value("${file.location}")
     private String location;
-    private String[] noTokenInterceptor = {"/api/user/login", "/api/user/register", "/api/user/getVerifyCode", "/api/article/getPageNum", "/api/article/getPageArticles"};
+    private String[] noTokenInterceptor = {"/api/user/login", "/api/user/register", "/api/user/get**", "/api/article/get**", "/api/label/get**", "/api/comment/get**"};
     private TokenInterceptor tokenInterceptor;
     private PermissionInterceptor permissionInterceptor;
 

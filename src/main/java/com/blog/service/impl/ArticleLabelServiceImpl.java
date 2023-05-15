@@ -6,6 +6,7 @@ import com.blog.domain.Label;
 import com.blog.service.ArticleLabelService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,18 +22,23 @@ public class ArticleLabelServiceImpl implements ArticleLabelService {
     @Override
     public void setArticleLabels(int articleId, List<String> labelNames) {
         for (String labelName : labelNames) {
-            Label label = labelDao.get(labelName);
+            Label label = labelDao.getByName(labelName);
             if (label == null) {
                 label = new Label();
                 label.setName(labelName);
                 labelDao.add(label);
             }
             articleLabelDao.add(articleId, label.getId());
+            labelDao.addArticleNum(label.getId());
         }
     }
 
     @Override
     public void deleteArticleLabels(int articleId) {
+        List<Integer> articleLabelIds = articleLabelDao.getArticleLabelIds(articleId);
+        for (Integer articleLabelId : articleLabelIds) {
+            labelDao.subArticleNum(articleLabelId);
+        }
         articleLabelDao.deleteArticleLabel(articleId);
     }
 
@@ -40,6 +46,17 @@ public class ArticleLabelServiceImpl implements ArticleLabelService {
     public void updateArticleLabels(int articleId, List<String> labelNames) {
         deleteArticleLabels(articleId);
         setArticleLabels(articleId, labelNames);
+    }
+
+    @Override
+    public List<Label> getArticleLabels(int articleId) {
+        List<Integer> articleLabelIds = articleLabelDao.getArticleLabelIds(articleId);
+        List<Label> articleLabels = new ArrayList<>();
+        for (Integer id : articleLabelIds) {
+            Label label = labelDao.getById(id);
+            articleLabels.add(label);
+        }
+        return articleLabels;
     }
 
     @Override

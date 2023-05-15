@@ -14,6 +14,8 @@ public interface ArticleThemeDao {
     void setArticleTheme(int articleId, int themeId);
     @Delete("delete from article_theme where article_id = #{articleId}")
     void deleteArticleTheme(int articleId);
+    @Select("select theme_id from article_theme where article_id = #{articleId}")
+    int getArticleThemeId(int articleId);
     @Select("select count(*) from article_theme where theme_id = #{themeId}")
     int getThemeArticleNum(int themeId);
     List<Integer> getPageArticleIds(int themeId, int currentNum, int pageSize);

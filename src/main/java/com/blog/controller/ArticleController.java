@@ -4,6 +4,8 @@ import com.blog.controller.response.DataResponse;
 import com.blog.controller.response.Response;
 import com.blog.controller.response.data.ArticlePage;
 import com.blog.domain.Article;
+import com.blog.domain.Label;
+import com.blog.domain.Theme;
 import com.blog.exception.Code;
 import com.blog.service.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,17 +28,19 @@ public class ArticleController {
     private FileService fileService;
     private ArticleLabelService articleLabelService;
     private ArticleThemeService articleThemeService;
+    private LabelService labelService;
     @Value("${file.article-img}")
     private String articleImgPath;
     @Value("${search.page-size}")
     private int pageSize;
 
-    public ArticleController(ArticleService articleService, EsArticleService elasticService, FileService fileService, ArticleLabelService articleLabelService, ArticleThemeService articleThemeService) {
+    public ArticleController(ArticleService articleService, EsArticleService elasticService, FileService fileService, ArticleLabelService articleLabelService, ArticleThemeService articleThemeService, LabelService labelService) {
         this.articleService = articleService;
         this.elasticService = elasticService;
         this.fileService = fileService;
         this.articleLabelService = articleLabelService;
         this.articleThemeService = articleThemeService;
+        this.labelService = labelService;
     }
 
     @RequestMapping("/add")
@@ -130,8 +134,14 @@ public class ArticleController {
         return DataResponse.success(Code.ARTICLE_UPLOAD_IMG, Code.ARTICLE_UPLOAD_IMG_MESSAGE, articleImgName);
     }
 
-    @RequestMapping("/getThemeArticleNum")
-    public DataResponse getThemeArticleNum(int themeId) {
+    @RequestMapping("/getTheme")
+    public DataResponse getTheme(int id) {
+        Theme theme = articleThemeService.getArticleTheme(id);
+        return DataResponse.success(Code.ARTICLE_GET_THEME, Code.ARTICLE_GET_THEME_MESSAGE, theme);
+    }
+
+    @RequestMapping("/getThemeArticlePageNum")
+    public DataResponse getThemeArticlePageNum(int themeId) {
         int themeArticleNum = articleThemeService.getThemeArticleNum(themeId);
         int themePageNum = themeArticleNum / pageSize + (themeArticleNum % pageSize == 0 ? 0 : 1);
         return DataResponse.success(Code.ARTICLE_THEME_GET_NUM, Code.ARTICLE_THEME_GET_NUM_MESSAGE, themePageNum);
@@ -143,8 +153,14 @@ public class ArticleController {
         return DataResponse.success(Code.ARTICLE_THEME_GET_PAGE, Code.ARTICLE_THEME_GET_PAGE_MESSAGE, ids);
     }
 
-    @RequestMapping("/getLabelArticleNum")
-    public DataResponse getLabelArticleNum(int labelId) {
+    @RequestMapping("/getLabels")
+    public DataResponse getLabels(int id) {
+        List<Label> labels = articleLabelService.getArticleLabels(id);
+        return DataResponse.success(Code.ARTICLE_GET_LABELS, Code.ARTICLE_GET_LABELS_MESSAGE, labels);
+    }
+
+    @RequestMapping("/getLabelArticlePageNum")
+    public DataResponse getLabelArticlePageNum(int labelId) {
         int labelArticleNum = articleLabelService.getLabelArticleNum(labelId);
         int labelPageNum = labelArticleNum / pageSize + (labelArticleNum % pageSize == 0 ? 0 : 1);
         return DataResponse.success(Code.ARTICLE_LABEL_GET_NUM, Code.ARTICLE_LABEL_GET_NUM_MESSAGE, labelPageNum);
@@ -157,8 +173,9 @@ public class ArticleController {
     }
 
     @RequestMapping("/getByIdList")
-    public DataResponse getByIdList(List<Integer> ids) {
+    public DataResponse getByIdList(@RequestParam List<Integer> ids) {
         List<Article> articles = elasticService.docPageGetByIdList(ids);
          return DataResponse.success(Code.ARTICLE_GET_BY_ID_LIST, Code.ARTICLE_GET_BY_ID_LIST_MESSAGE, articles);
     }
+
 }
