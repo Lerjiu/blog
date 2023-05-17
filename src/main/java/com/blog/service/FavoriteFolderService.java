@@ -8,6 +8,7 @@ import java.util.List;
 @Transactional
 public interface FavoriteFolderService extends PermissionService {
     void add(FavoriteFolder favoriteFolder);
+    FavoriteFolder getFavoriteFolder(int id);
     List<FavoriteFolder> getFavoriteFolders(int userId);
     void delete(int id);
 }

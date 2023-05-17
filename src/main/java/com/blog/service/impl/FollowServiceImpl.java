@@ -37,8 +37,8 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public boolean checkUserFollow(int userId, int id) {
-        return followDao.checkUserFollow(userId, id);
+    public boolean checkUserFollow(int follower, int followed) {
+        return followDao.checkFollowerFollowed(follower, followed);
     }
 
     @Override

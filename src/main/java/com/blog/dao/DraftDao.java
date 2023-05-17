@@ -8,6 +8,7 @@ import java.util.List;
 @Mapper
 public interface DraftDao {
     @Insert("insert into draft(title, description, content, author, update_time) values(#{title}, #{description}, #{content}, #{author}, #{updateTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void add(Draft draft);
     @Delete("delete from draft where id = #{id}")
     void delete(int id);

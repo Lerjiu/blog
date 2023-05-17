@@ -11,4 +11,7 @@
     <select id="getFavoriteFolders" resultMap="favoriteFolderResultMap">
         select * from favorite_folder where user_id = #{userId}
     </select>
+    <select id="getFavoriteFolder" resultMap="favoriteFolderResultMap">
+        select * from favorite_folder where id = #{id}
+    </select>
 </mapper>

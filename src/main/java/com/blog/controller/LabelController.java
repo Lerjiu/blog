@@ -23,6 +23,6 @@ public class LabelController {
     @RequestMapping("/getHotLabels")
     public DataResponse getHotLabels() {
         List<Label> hotLabels = labelService.getHotLabels();
-        return DataResponse.success(Code.LABEL_GET_HOT, Code.FAVORITE_GET_LIST_MESSAGE, hotLabels);
+        return DataResponse.success(Code.LABEL_GET_HOT, Code.LABEL_GET_HOT_MESSAGE, hotLabels);
     }
 }

@@ -26,7 +26,7 @@ public class FavoriteFolderController {
     public Response add(@RequestHeader("id") int userId, FavoriteFolder favoriteFolder) {
         favoriteFolder.setUserId(userId);
         favoriteFolderService.add(favoriteFolder);
-        return Response.success(Code.FAVORITE_ADD_FOLDER, Code.FAVORITE_ADD_FOLDER_MESSAGE);
+        return DataResponse.success(Code.FAVORITE_ADD_FOLDER, Code.FAVORITE_ADD_FOLDER_MESSAGE, favoriteFolder.getId());
     }
 
     @RequestMapping("/getUserFolders")
@@ -40,4 +40,5 @@ public class FavoriteFolderController {
         favoriteFolderService.delete(id);
         return Response.success(Code.FAVORITE_DELETE_FOLDER, Code.FAVORITE_DELETE_FOLDER_MESSAGE);
     }
+
 }

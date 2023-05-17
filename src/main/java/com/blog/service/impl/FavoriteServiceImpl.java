@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.dao.ArticleDao;
+import com.blog.dao.EsArticleDao;
 import com.blog.dao.FavoriteDao;
 import com.blog.dao.FavoriteFolderDao;
 import com.blog.domain.Favorite;
@@ -14,17 +15,20 @@ public class FavoriteServiceImpl implements FavoriteService {
     private FavoriteDao favoriteDao;
     private ArticleDao articleDao;
     private FavoriteFolderDao favoriteFolderDao;
+    private EsArticleDao esArticleDao;
 
-    public FavoriteServiceImpl(FavoriteDao favoriteDao, ArticleDao articleDao, FavoriteFolderDao favoriteFolderDao) {
+    public FavoriteServiceImpl(FavoriteDao favoriteDao, ArticleDao articleDao, FavoriteFolderDao favoriteFolderDao, EsArticleDao esArticleDao) {
         this.favoriteDao = favoriteDao;
         this.articleDao = articleDao;
         this.favoriteFolderDao = favoriteFolderDao;
+        this.esArticleDao = esArticleDao;
     }
 
     @Override
     public void add(Favorite favorite) {
         favoriteDao.add(favorite);
         articleDao.addFavoritesNum(favorite.getArticleId());
+        esArticleDao.addFavoritesNum(favorite.getArticleId());
         favoriteFolderDao.addFavoritesNum(favorite.getFolderId());
     }
 
@@ -39,10 +43,16 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
+    public boolean checkArticleInFolder(int articleId, int folderId) {
+        return favoriteDao.checkArticleInFolder(articleId, folderId);
+    }
+
+    @Override
     public void delete(int id) {
         Favorite favorite = favoriteDao.get(id);
         favoriteDao.delete(id);
         articleDao.subFavoritesNum(favorite.getArticleId());
+        esArticleDao.subFavoritesNum(favorite.getArticleId());
         favoriteFolderDao.subFavoritesNum(favorite.getFolderId());
     }
 

@@ -37,4 +37,14 @@ public class Favorite {
     public void setFolderId(int folderId) {
         this.folderId = folderId;
     }
+
+    @Override
+    public String toString() {
+        return "Favorite{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", articleId=" + articleId +
+                ", folderId=" + folderId +
+                '}';
+    }
 }

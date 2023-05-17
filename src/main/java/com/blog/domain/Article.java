@@ -93,6 +93,21 @@ public class Article {
         this.commentOrderNum = commentOrderNum;
     }
 
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", content='" + content + '\'' +
+                ", commentsNum=" + commentsNum +
+                ", favoritesNum=" + favoritesNum +
+                ", author=" + author +
+                ", updateTime=" + updateTime +
+                ", commentOrderNum=" + commentOrderNum +
+                '}';
+    }
+
     public static Article getArticleFromDraft(Draft draft) {
         Article article = new Article();
         article.setTitle(draft.getTitle());

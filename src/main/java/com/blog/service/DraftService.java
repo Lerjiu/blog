@@ -14,5 +14,5 @@ public interface DraftService extends PermissionService {
     Draft get(int id);
     int getUserDraftNum(int userId);
     List<Draft> getUserPageDrafts(int userId, int currentPage, int pageSize);
-    void publishDraft(int id, Date updateTime);
+    int publishDraft(int id, Date updateTime);
 }

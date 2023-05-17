@@ -21,6 +21,8 @@ public interface FavoriteDao {
     void deleteForFolder(int folderId);
     @Delete("delete from favorite where article_id = #{articleId}")
     void deleteForArticle(int articleId);
+    @Select("select exists(select * from favorite where folder_id = #{folderId} and article_id = #{articleId})")
+    boolean checkArticleInFolder(int articleId, int folderId);
     @Select("select exists(select * from favorite where id = #{id} and user_id = #{userId})")
     boolean checkUserFavorite(int userId, int id);
 }

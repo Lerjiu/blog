@@ -73,10 +73,14 @@ public class Code {
     public static final String FAVORITE_ADD_MESSAGE = "add favorite success";
     public static final int FAVORITE_GET_LIST = 80040;
     public static final String FAVORITE_GET_LIST_MESSAGE = "get favorite list success";
-    public static final int FAVORITE_GET_PAGE_LIST = 80050;
-    public static final String FAVORITE_GET_PAGE_LIST_MESSAGE = "get page favorite list success";
-    public static final int FAVORITE_DELETE = 80060;
+    public static final int FAVORITE_GET_PAGE_NUM = 80050;
+    public static final String FAVORITE_GET_PAGE_NUM_MESSAGE = "get favorite page num success";
+    public static final int FAVORITE_GET_PAGE = 80060;
+    public static final String FAVORITE_GET_PAGE_MESSAGE = "get page favorite success";
+    public static final int FAVORITE_DELETE = 80070;
     public static final String FAVORITE_DELETE_MESSAGE = "delete favorite success";
+    public static final int FAVORITE_CHECK_ARTICLE_IN_FOLDERS = 80080;
+    public static final String FAVORITE_CHECK_ARTICLE_IN_FOLDERS_MESSAGE = "check article in favorite folders success";
 
     public static final int ARTICLE_ADD = 90000;
     public static final String ARTICLE_ADD_MESSAGE = "add article success";
@@ -112,6 +116,10 @@ public class Code {
     public static final String ARTICLE_GET_THEME_MESSAGE = "get article theme success";
     public static final int ARTICLE_GET_LABELS = 90160;
     public static final String ARTICLE_GET_LABELS_MESSAGE = "get article labels success";
+    public static final int ARTICLE_GET_THEME_BY_IDS = 90170;
+    public static final String ARTICLE_GET_THEME_BY_IDS_MESSAGE = "get article theme by ids success";
+    public static final int ARTICLE_GET_LABELS_BY_IDS = 90180;
+    public static final String ARTICLE_GET_LABELS_BY_IDS_MESSAGE = "get article labels by ids success";
 
     public static final int DRAFT_ADD = 100000;
     public static final String DRAFT_ADD_MESSAGE = "add draft success";
@@ -127,7 +135,15 @@ public class Code {
     public static final String DRAFT_GET_USER_PAGE_MESSAGE = "get user drafts success";
     public static final int DRAFT_PUBLISH = 100060;
     public static final String DRAFT_PUBLISH_MESSAGE = "publish draft success";
+    public static final int DRAFT_GET_THEME = 100070;
+    public static final String DRAFT_GET_THEME_MESSAGE = "get draft theme success";
+    public static final int DRAFT_GET_THEME_BY_IDS = 100080;
+    public static final String DRAFT_GET_THEME_BY_IDS_MESSAGE = "get draft theme by ids success";
+    public static final int DRAFT_GET_LABELS = 100090;
+    public static final String DRAFT_GET_LABELS_MESSAGE = "get draft labels success";
+    public static final int DRAFT_GET_LABELS_BY_IDS = 100100;
+    public static final String DRAFT_GET_LABELS_BY_IDS_MESSAGE = "get draft labels by ids success";
 
-    public static final int LABEL_GET_HOT = 110000;
-    private static final String LABEL_GET_HOT_MESSAGE = "get hot labels success";
+    public static final int LABEL_GET_HOT = 110110;
+    public static final String LABEL_GET_HOT_MESSAGE = "get hot labels success";
 }

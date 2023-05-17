@@ -51,12 +51,13 @@ public class DraftServiceImpl implements DraftService {
     }
 
     @Override
-    public void publishDraft(int id, Date updateTime) {
+    public int publishDraft(int id, Date updateTime) {
         Draft draft = draftDao.get(id);
         Article article = Article.getArticleFromDraft(draft);
         article.setUpdateTime(updateTime);
         articleDao.add(article);
         draftDao.delete(id);
+        return article.getId();
     }
 
     @Override

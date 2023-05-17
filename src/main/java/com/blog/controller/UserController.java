@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -102,10 +103,27 @@ public class UserController {
     }
 
     @RequestMapping("/getOtherBriefInfos")
-    public DataResponse getOtherBriefInfos(@RequestParam List<Integer> ids) {
-        List<User> users = userService.getUserByIds(ids);
-        List<UserBriefInfo> userBriefInfos = UserBriefInfo.getUserBriefInfosFromUsers(users);
+    public DataResponse getOtherBriefInfos(@RequestHeader("id") int userId, @RequestParam List<Integer> ids) {
+        List<User> users = new ArrayList<>();
+        List<Boolean> followedList = new ArrayList<>();
+        for (Integer id : ids) {
+            User user = userService.getUserById(id);
+            boolean followed = followService.checkUserFollow(userId, id);
+            users.add(user);
+            followedList.add(followed);
+        }
+        List<UserBriefInfo> userBriefInfos = UserBriefInfo.getUserBriefInfosFromUsers(users, followedList);
         return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, userBriefInfos);
+    }
+
+    @RequestMapping("/getUserNames")
+    public DataResponse getUserNames(@RequestParam List<Integer> ids) {
+        List<String> names = new ArrayList<>();
+        for (Integer id : ids) {
+            String name = userService.getUserById(id).getName();
+            names.add(name);
+        }
+        return DataResponse.success(Code.USER_GET_INFO, Code.USER_GET_INFO_MESSAGE, names);
     }
 
     @RequestMapping("/updateInfo")

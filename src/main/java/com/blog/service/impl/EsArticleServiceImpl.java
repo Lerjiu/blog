@@ -72,6 +72,7 @@ public class EsArticleServiceImpl implements EsArticleService {
 
         FunctionScoreQueryBuilder queryBuilder = QueryBuilders.functionScoreQuery(
                         QueryBuilders.matchQuery("all", search)
+                                .analyzer("ik_max_word")
                                 .operator(Operator.AND)
                                 .fuzziness(Fuzziness.AUTO));
 

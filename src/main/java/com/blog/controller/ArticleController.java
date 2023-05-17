@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,15 +54,15 @@ public class ArticleController {
         elasticService.docCreate(article);
         articleThemeService.setArticleTheme(article.getId(), themeId);
         articleLabelService.setArticleLabels(article.getId(), labelNames);
-        return Response.success(Code.ARTICLE_ADD, Code.ARTICLE_ADD_MESSAGE);
+        return DataResponse.success(Code.ARTICLE_ADD, Code.ARTICLE_ADD_MESSAGE, article.getId());
     }
 
     @RequestMapping("/delete")
     public Response delete(int id) {
-        articleService.delete(id);
-        elasticService.docDelete(id);
         articleThemeService.deleteArticleTheme(id);
         articleLabelService.deleteArticleLabels(id);
+        elasticService.docDelete(id);
+        articleService.delete(id);
         return Response.success(Code.ARTICLE_DELETE, Code.ARTICLE_DELETE_MESSAGE);
     }
 
@@ -140,6 +141,16 @@ public class ArticleController {
         return DataResponse.success(Code.ARTICLE_GET_THEME, Code.ARTICLE_GET_THEME_MESSAGE, theme);
     }
 
+    @RequestMapping("/getThemeByIds")
+    public DataResponse getThemeByIds(@RequestParam List<Integer> ids) {
+        List<Theme> themes = new ArrayList<>();
+        for (Integer id : ids) {
+            Theme theme = articleThemeService.getArticleTheme(id);
+            themes.add(theme);
+        }
+        return DataResponse.success(Code.ARTICLE_GET_THEME_BY_IDS, Code.ARTICLE_GET_THEME_BY_IDS_MESSAGE, themes);
+    }
+
     @RequestMapping("/getThemeArticlePageNum")
     public DataResponse getThemeArticlePageNum(int themeId) {
         int themeArticleNum = articleThemeService.getThemeArticleNum(themeId);
@@ -157,6 +168,16 @@ public class ArticleController {
     public DataResponse getLabels(int id) {
         List<Label> labels = articleLabelService.getArticleLabels(id);
         return DataResponse.success(Code.ARTICLE_GET_LABELS, Code.ARTICLE_GET_LABELS_MESSAGE, labels);
+    }
+
+    @RequestMapping("/getLabelsByIds")
+    public DataResponse getLabelsByIds(@RequestParam List<Integer> ids) {
+        List<List<Label>> labelLists = new ArrayList<>();
+        for (Integer id : ids) {
+            List<Label> labels = articleLabelService.getArticleLabels(id);
+            labelLists.add(labels);
+        }
+        return DataResponse.success(Code.ARTICLE_GET_LABELS_BY_IDS, Code.ARTICLE_GET_LABELS_BY_IDS_MESSAGE, labelLists);
     }
 
     @RequestMapping("/getLabelArticlePageNum")

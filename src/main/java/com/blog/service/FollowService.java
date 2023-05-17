@@ -9,5 +9,5 @@ public interface FollowService extends PermissionService {
     void add(int follower, int followed);
     List<Integer> getUserFollowed(int follower);
     void delete(int follower, int followed);
-    boolean checkUserFollow(int userId, int id);
+    boolean checkUserFollow(int follower, int followed);
 }
