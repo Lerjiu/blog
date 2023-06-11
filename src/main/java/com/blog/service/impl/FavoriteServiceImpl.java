@@ -5,6 +5,7 @@ import com.blog.dao.EsArticleDao;
 import com.blog.dao.FavoriteDao;
 import com.blog.dao.FavoriteFolderDao;
 import com.blog.domain.Favorite;
+import com.blog.exception.DuplicateFavoriteException;
 import com.blog.service.FavoriteService;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void add(Favorite favorite) {
+        if (favoriteDao.checkArticleInFolder(favorite.getArticleId(), favorite.getFolderId()) != null) {
+            throw new DuplicateFavoriteException();
+        }
         favoriteDao.add(favorite);
         articleDao.addFavoritesNum(favorite.getArticleId());
         esArticleDao.addFavoritesNum(favorite.getArticleId());
@@ -43,7 +47,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public boolean checkArticleInFolder(int articleId, int folderId) {
+    public Integer checkArticleInFolder(int articleId, int folderId) {
         return favoriteDao.checkArticleInFolder(articleId, folderId);
     }
 

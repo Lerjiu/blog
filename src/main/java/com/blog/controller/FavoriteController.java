@@ -36,10 +36,10 @@ public class FavoriteController {
     }
 
     @RequestMapping("/add")
-    public Response add(@RequestHeader("id") int userId, Favorite favorite) {
+    public DataResponse add(@RequestHeader("id") int userId, Favorite favorite) {
         favorite.setUserId(userId);
         favoriteService.add(favorite);
-        return Response.success(Code.FAVORITE_ADD, Code.FAVORITE_ADD_MESSAGE);
+        return DataResponse.success(Code.FAVORITE_ADD, Code.FAVORITE_ADD_MESSAGE, favorite.getId());
     }
 
     @RequestMapping("/getFolderFavorites")
@@ -84,11 +84,15 @@ public class FavoriteController {
     @RequestMapping("/checkArticleInFolders")
     public DataResponse checkArticleInFolders(@RequestHeader("id") int userId, int articleId) {
         List<FavoriteFolder> favoriteFolders = favoriteFolderService.getFavoriteFolders(userId);
-        List<Boolean> isArticleInFolders = new ArrayList<>();
+        List<Integer> favoriteIds = new ArrayList<>();
         for (FavoriteFolder favoriteFolder : favoriteFolders) {
-            boolean isArticleInFolder = favoriteService.checkArticleInFolder(articleId, favoriteFolder.getId());
-            isArticleInFolders.add(isArticleInFolder);
+            Integer favoriteId = favoriteService.checkArticleInFolder(articleId, favoriteFolder.getId());
+            if (favoriteId != null) {
+                favoriteIds.add(favoriteId);
+            } else {
+                favoriteIds.add(-1);
+            }
         }
-        return DataResponse.success(Code.FAVORITE_CHECK_ARTICLE_IN_FOLDERS, Code.FAVORITE_CHECK_ARTICLE_IN_FOLDERS_MESSAGE, isArticleInFolders);
+        return DataResponse.success(Code.FAVORITE_CHECK_ARTICLE_IN_FOLDERS, Code.FAVORITE_CHECK_ARTICLE_IN_FOLDERS_MESSAGE, favoriteIds);
     }
 }

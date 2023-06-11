@@ -101,8 +101,12 @@ public class EsArticleServiceImpl implements EsArticleService {
 
     @Override
     public List<Article> docPageGetByIdList(List<Integer> articleIds) {
-        List<MultiGetItem<Article>> multiGetItems = elasticsearchRestTemplate.multiGet(Query.multiGetQuery(IntIdConverter.convert(articleIds)), Article.class);
         List<Article> articles = new ArrayList<>();
+        if (articleIds.isEmpty()) {
+            return articles;
+        }
+        List<MultiGetItem<Article>> multiGetItems = elasticsearchRestTemplate.multiGet(Query.multiGetQuery(IntIdConverter.convert(articleIds)), Article.class);
+
         multiGetItems.forEach(articleMultiGetItem -> {
             Article article = articleMultiGetItem.getItem();
             if (article != null) {

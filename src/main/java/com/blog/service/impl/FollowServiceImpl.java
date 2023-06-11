@@ -30,6 +30,11 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
+    public List<Integer> getUserFollower(int followed) {
+        return followDao.getFollowerList(followed);
+    }
+
+    @Override
     public void delete(int follower, int followed) {
         followDao.delete(follower, followed);
         userDao.subFollowerNum(followed);

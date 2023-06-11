@@ -1,5 +1,7 @@
 package com.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Label {
     private int id;
     private String name;
@@ -21,6 +23,7 @@ public class Label {
         this.name = name;
     }
 
+    @JsonProperty("value")
     public int getArticleNum() {
         return articleNum;
     }

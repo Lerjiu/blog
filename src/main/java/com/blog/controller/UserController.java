@@ -133,10 +133,10 @@ public class UserController {
     }
 
     @RequestMapping("/updateAvatar")
-    public Response updateAvatar(@RequestHeader("id") int id, MultipartFile avatar) {
+    public DataResponse updateAvatar(@RequestHeader("id") int id, MultipartFile avatar) {
         String avatarName = fileService.upload(avatar, avatarPath);
         userService.updateAvatar(id, avatarName);
-        return Response.success(Code.USER_UPDATE_AVATAR, Code.USER_UPDATE_AVATAR_MESSAGE);
+        return DataResponse.success(Code.USER_UPDATE_AVATAR, Code.USER_UPDATE_AVATAR_MESSAGE, avatarName);
     }
 
     @RequestMapping("/updatePassword")

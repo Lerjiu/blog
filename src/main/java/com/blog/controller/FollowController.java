@@ -7,6 +7,7 @@ import com.blog.service.FollowService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -22,20 +23,26 @@ public class FollowController {
     }
 
     @RequestMapping("/add")
-    public Response add(@RequestHeader("id") int id, int followed) {
-        followService.add(id, followed);
+    public Response add(@RequestHeader("id") int userId, int followed) {
+        followService.add(userId, followed);
         return Response.success(Code.FOLLOW, Code.FOLLOW_MESSAGE);
     }
 
     @RequestMapping("/getUserFollowed")
-    public DataResponse getUserFollowed(@RequestHeader("id") int id) {
-        List<Integer> followedList = followService.getUserFollowed(id);
+    public DataResponse getUserFollowed(@RequestHeader("id") int userId) {
+        List<Integer> followedList = followService.getUserFollowed(userId);
         return DataResponse.success(Code.FOLLOW_GET_FOLLOWED_LIST, Code.FOLLOW_GET_FOLLOWED_LIST_MESSAGE, followedList);
     }
 
+    @RequestMapping("/getUserFollower")
+    public DataResponse getUserFollower(@RequestHeader("id") int userId) {
+        List<Integer> followerList = followService.getUserFollower(userId);
+        return DataResponse.success(Code.FOLLOW_GET_FOLLOWER_LIST, Code.FOLLOW_GET_FOLLOWER_LIST_MESSAGE, followerList);
+    }
+
     @RequestMapping("/delete")
-    public Response delete(@RequestHeader("id") int id, int followed) {
-        followService.delete(id, followed);
-        return Response.success(Code.FOLLOW_DELETE, Code.FAVORITE_DELETE_MESSAGE);
+    public Response delete(@RequestHeader("id") int userId, @RequestParam(name = "id") int followed) {
+        followService.delete(userId, followed);
+        return Response.success(Code.FOLLOW_DELETE, Code.FOLLOW_DELETE_MESSAGE);
     }
 }

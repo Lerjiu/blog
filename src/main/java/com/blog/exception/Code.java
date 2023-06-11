@@ -53,7 +53,9 @@ public class Code {
     public static final String FOLLOW_MESSAGE = "follow success";
     public static final int FOLLOW_GET_FOLLOWED_LIST = 60010;
     public static final String FOLLOW_GET_FOLLOWED_LIST_MESSAGE = "get followed list success";
-    public static final int FOLLOW_DELETE = 60020;
+    public static final int FOLLOW_GET_FOLLOWER_LIST = 60020;
+    public static final String FOLLOW_GET_FOLLOWER_LIST_MESSAGE = "get follower list success;";
+    public static final int FOLLOW_DELETE = 60030;
     public static final String FOLLOW_DELETE_MESSAGE = "delete followed success";
 
     public static final int COMMENT_ADD = 70000;
@@ -71,6 +73,8 @@ public class Code {
     public static final String FAVORITE_DELETE_FOLDER_MESSAGE = "delete favorite folder success";
     public static final int FAVORITE_ADD = 80030;
     public static final String FAVORITE_ADD_MESSAGE = "add favorite success";
+    public static final int FAVORITE_EXCEPTION_DUPLICATE_IN_FOLDER = 80031;
+    public static final String FAVORITE_EXCEPTION_DUPLICATE_IN_FOLDER_MESSAGE = "exception: favorite duplicate in folder";
     public static final int FAVORITE_GET_LIST = 80040;
     public static final String FAVORITE_GET_LIST_MESSAGE = "get favorite list success";
     public static final int FAVORITE_GET_PAGE_NUM = 80050;
